@@ -1,3 +1,8 @@
+# editor backups
+*.bak
+*~
+\#*
+
 # Prerequisites
 *.d
 
@@ -30,3 +35,4 @@
 *.exe
 *.out
 *.app
+cplex_ilp
