@@ -1,0 +1,55 @@
+#! /bin/bash
+
+##: cplexLBFromFile - do repetitions of cplex with a known (presumably
+#     optimum) upper bound based on a list of benchmarks and optima in a file.
+#  
+#   Usage: cplexLBFromFile BENCHMARK_LIST OUTPUT_DIR option_1 ... option_k
+#
+# @author Matt Stallmann
+# @date 2006/11/06
+# $Id$
+
+ulimit -c 0
+if [ $# -lt 2 ]; then
+    echo "Usage: cplexLBFromFile BENCHMARKS_LIST OUTPUT_DIR [option_1 ... option_k]"
+    echo " where option_1 ... option_k are command-line options for cplex_ilp."
+    exit 1
+fi
+benchmark_list=$1
+shift
+output_dir=$1
+shift
+options="$@"
+if [ ! -d $output_dir ]; then
+    if [ ! -f $output_dir ]; then
+        mkdir $output_dir
+    else
+        echo "Output directory $output_dir exists as a file."
+        echo "Cannot proceed with script $0"
+        exit 1
+    fi
+fi
+output_file=$output_dir/${benchmark_list}_cplex_$$.out
+if [ -e $output_file ]; then
+    mv $output_file $output_file.bak
+fi
+
+# put system info at the top of the output file
+system_profile $output_file
+echo "" >> $output_file
+
+# read one line at a time from the benchmark list (see redirection at the end
+# of the loop) and do the appropriate umbraLB computation. 
+while read benchmark optimum; do
+    echo "=== cplex -UB=$optimum $benchmark $optimum $options ===" >> $output_file
+    echo " === `date -u +'%F %T'` ===" >> $output_file
+    if [ $optimum -gt 0 ]; then
+        cplex_ilp $benchmark -covers -frac_cuts -UB=$optimum -trace=0\
+          $options >> $output_file 2>&1
+        echo "===================================================="\
+           >> $output_file
+        echo "" >> $output_file
+    fi
+done < $benchmark_list
+
+#  [Last modified: 2007 06 06 at 16:22:34 GMT]

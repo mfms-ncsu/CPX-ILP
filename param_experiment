@@ -1,0 +1,44 @@
+#! /bin/bash
+## param_experiment -- bash script for experiment involving CPLEX parameters;
+#                      assumption is that i0000.lpx through i0009.lpx are
+#                      from one reference benchmark, i0010-i0019 from a
+#                      second, and i0020-i0029 from a third.
+# @author Matt Stallmann, 2004/11/04
+# <br> $Revision: 1.4 $, $Author: mfms $, $Date: 2004/11/29 13:26:25 $
+
+for feasible in 0 2 3; do
+    for nsel in b e f; do
+        for rins in -1 +1; do
+            for dep in -1 +0; do
+                for lp in a d; do
+                    # process 10 morphs of the first benchmark (ex5)
+                    output_file=ex5_${feasible}_${nsel}_${rins}_${dep}_${lp}.out
+                    touch $output_file
+                    for input_file in i000?.lpx; do
+                        ./cplex_ilp $input_file -nsel=$nsel -rins=$rins\
+                            -dep=$dep -lp=$lp >> $output_file 2>&1 
+                    done
+
+                    # process 10 morphs of the second benchmark (max1024.pi)
+                    output_file=max_${feasible}_${nsel}_${rins}_${dep}_${lp}.out
+                    touch $output_file
+                    for input_file in i001?.lpx; do
+                        ./cplex_ilp $input_file -nsel=$nsel -rins=$rins\
+                            -dep=$dep -lp=$lp >> $output_file 2>&1 
+                    done
+
+                    # process 10 morphs of the third benchmark (rot.b)
+                    output_file=rot_${feasible}_${nsel}_${rins}_${dep}_${lp}.out
+                    touch $output_file
+                    for input_file in i002?.lpx; do
+                        ./cplex_ilp $input_file -nsel=$nsel -rins=$rins\
+                            -dep=$dep -lp=$lp >> $output_file 2>&1 
+                    done
+
+                done
+            done
+        done
+    done
+done
+
+#  [Last modified: 2004 11 04 at 22:14:23 GMT]

@@ -1,0 +1,67 @@
+#! /bin/bash
+##: cplexClassScript - do repetitions of cplex experiments in a directory
+##
+## Usage: <code>cplexClassScript CLASS_DIR OUTPUT_DIR SUFFIX [OPTIONS]</code>
+##
+##    where OPTIONS is a list of command-line options for cplex_ilp.
+##  @author Matt Stallmann
+##  @date before 2005
+
+##  2006/12/31 - updated in accordance with conventions used by
+##               umbraClassScript 
+
+ulimit -c 0
+if [ $# -lt 3 ]; then
+    echo "Usage: cplexClassScript CLASS_DIR OUTPUT_DIR SUFFIX [OPTIONS]"
+    echo " where OPTIONS is a list of command-line options for cplex_ilp."
+    exit 1
+fi
+class_dir=$1
+shift
+output_dir=$1
+shift
+suffix=$1
+first_symbol=${suffix:0:1}
+if [ $first_symbol != "-" ]; then
+    suffix=_$suffix
+    shift
+else
+    suffix=
+fi
+options="$@"
+if [ ! -d $output_dir ]; then
+    if [ ! -f $output_dir ]; then
+        mkdir $output_dir
+    else
+        echo "Output directory $output_dir exists as a file."
+        echo "Cannot proceed with script $0"
+        exit 1
+    fi
+fi
+
+class_base=`basename $class_dir`
+output_file=$output_dir/${class_base}$suffix.out
+if [ -e $output_file ]; then
+    output_file=$output_dir/`basename $output_file .out`_$$.out
+    echo "Warning: output file exists, using $output_file" > /dev/stderr
+fi
+
+# put system info at the top of the output file
+if [ "$OSTYPE" = "linux-gnu" ]; then
+    cat /proc/cpuinfo >> $output_file
+    cat /proc/meminfo >> $output_file
+elif [ "$OSTYPE" = "darwin7.0" ]; then
+    /usr/sbin/system_profiler -detailLevel -2 >> $output_file
+elif [ "$OSTYPE" = "solaris" ]; then
+    /usr/platform/sun4u/sbin/prtdiag >> $output_file
+fi
+echo "" >> $output_file
+
+for file in $class_dir/*.lpx; do
+    echo "===== cplex_ilp $file =====" >> $output_file
+    cplex_ilp $file $options >> $output_file 2>&1
+    echo "====================================================" >> $output_file
+    echo "" >> $output_file
+done
+
+#  [Last modified: 2007 06 06 at 16:16:12 GMT]

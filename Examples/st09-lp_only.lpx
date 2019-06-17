@@ -1,0 +1,21 @@
+\  File Examples/st_a09-lp_only.lpx, created Mon Jun 17 20:01:58 UTC 2019
+\   - created from covering/sat instance steiner_a0009.lpx
+\  but with no binary constraints
+Min
+  obj: +x1 +x2 +x3 +x4 +x5 +x6 +x7 +x8 +x9
+st
+  c1: +x1 +x4 +x7 >= 1
+  c2: +x2 +x5 +x8 >= 1
+  c3: +x3 +x6 +x9 >= 1
+  c4: +x1 +x5 +x9 >= 1
+  c5: +x1 +x6 +x8 >= 1
+  c6: +x2 +x4 +x9 >= 1
+  c7: +x2 +x6 +x7 >= 1
+  c8: +x3 +x4 +x8 >= 1
+  c9: +x3 +x5 +x7 >= 1
+  c10: +x1 +x2 +x3 >= 1
+  c11: +x4 +x5 +x6 >= 1
+  c12: +x7 +x8 +x9 >= 1
+Semi
+   x1 x2 x3 x4 x5 x6 x7 x8 x9
+End
