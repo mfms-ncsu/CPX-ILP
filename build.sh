@@ -34,5 +34,6 @@ if [ -e $root_dir/cplex/lib/$arch/static_pic/libcplexdistmip.a ]; then
 fi
 
 make ROOT_DIR=$root_dir SYSTEM=$arch DISTMIP=$distmip
+make install
 
-#  [Last modified: 2019 05 17 at 08:44:15 GMT]
+#  [Last modified: 2019 07 20 at 13:10:02 GMT]

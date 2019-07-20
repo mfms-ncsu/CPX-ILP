@@ -2,6 +2,8 @@
 ///                  using the CPLEX solver (adapted from ilomipex2.cpp in
 ///                  the examples directory for cplex75 by Matt Stallmannn).
 
+/// @todo add more reporting of statistics such as number of cuts
+
 // 2004/10/20 - making changes so that it'll work with cplex90 and concert20
 // 2005/05/05 - additional changes for backward compatibility with cplex75
 // 2019/05/17 - added a different timer mechanism: CPLEX 12.9 internal timer
@@ -13,6 +15,9 @@
 //  Permission is expressly granted to use this example in the
 //  course of developing applications that use ILOG products.
 // --------------------------------------------------------------------------
+
+#define VERSION "12.5"
+#define RELEASE_DATE "2019/7/20"
 
 #include <string>
 #include <iostream>
@@ -52,7 +57,7 @@ main (int argc, char **argv)
 {
    IloEnv env;
 
-   env.out() << "+++ cplex_ilp, release 1.4, 2019/5/17 +++" << endl;
+   env.out() << "+++ cplex_ilp, release " << VERSION << ", " << RELEASE_DATE << " +++" << endl;
    env.out() << "\t" << env.getVersion() << endl;
    env.out() << "CurrentTime\t" << current_time() << endl;
 
@@ -421,15 +426,14 @@ main (int argc, char **argv)
    cout << "SolutionFound\t" << solution_found << endl;
    cout << "ProvedOptimal\t" << proved_optimal << endl;
    cout << "StatusCode\t" << solution_status << endl;
-   // the +1 is needed because CPLEX does not count the root.
-   cout << "Nodes   \t" << (cplex.getNnodes() + 1) << endl;
+   cout << "num_branches\t" << cplex.getNnodes() << endl;
    if( solution_found ) {
-     cout << "Objective\t" << cplex.getObjValue() << endl;
+     cout << "value     \t" << cplex.getObjValue() << endl;
    }
-   cout << "Iterations\t" << cplex.getNiterations() << endl;
-   //cout << "FractionalCuts\t" << cplex.getNfractionalCuts() << endl;
-   //cout << "CliqueCuts\t" << cplex.getNcliques() << endl;
-   //cout << "CoverCuts\t" << cplex.getNcovers() << endl;
+   cout << "iterations\t" << cplex.getNiterations() << endl;
+   cout << "frac_cuts  \t" << cplex.getNcuts(IloCplex::CutFrac) << endl;
+   cout << "clique_cuts\t" << cplex.getNcuts(IloCplex::CutClique) << endl;
+   cout << "cover_cuts\t" << cplex.getNcuts(IloCplex::CutCover) << endl;
 
    if( command_line.flagPresent( "verify" ) && solution_found ) {
      if( solve_as_lp ) { // linear program
@@ -592,4 +596,4 @@ static void usage ( const char *progname )
         << endl;
 } // END usage
 
-//  [Last modified: 2019 05 17 at 21:03:01 GMT]
+//  [Last modified: 2019 07 20 at 13:08:59 GMT]
