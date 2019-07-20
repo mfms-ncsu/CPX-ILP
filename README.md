@@ -8,10 +8,9 @@ If you have questions, comments or bugs to report, please contact me at mfms@ncs
 To build, do the following
 1. Try running `./build.sh`
 2. If you are lucky, `cplex_ilp` will compile without error
-3. If not, add an option in the `build.sh` script to account for the directories where `ilog` `concert` and `cplex` are located; please inform us if you required this so that we can expand the number of platforms on which `cplex_ilp` will run
-4. Do `make install` to put `cplex_ilp` into your home bin directory
-5. `cplex_ilp` or `./cplex_ilp` (if you didn't install) should give you a long usage message
-6. Try one or more of the following
+3. If not, add an option in the `build.sh` script to account for the directories where `ilog` `concert` and `cplex` are located; please inform us if you required this so that we can expand the number of platforms on which `cplex_ilp` will run; `cplex_ilp` will be installed in your home `bin` directory
+4. `cplex_ilp` or `./cplex_ilp` should give you a long usage message
+5. Try one or more of the following
 * `cplex_ilp -solution Examples/steiner_a0009.lpx` (the -solution option prints out a solution)
 * `cplex_ilp -solution Examples/st09-lp_only.lpx` (here, the solution is the lp-relaxation)
 * `cplex_ilp -time=60 Examples/test4.pi.lpx` (should time out after 60 seconds; let me know if you get an optimum solution)
