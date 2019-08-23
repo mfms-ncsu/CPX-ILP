@@ -16,7 +16,7 @@
 //  course of developing applications that use ILOG products.
 // --------------------------------------------------------------------------
 
-#define VERSION "12.5"
+#define VERSION "1.5"
 #define RELEASE_DATE "2019/7/20"
 
 #include <string>
@@ -360,6 +360,18 @@ main (int argc, char **argv)
      cplex.setParam( IloCplex::MIPInterval, frequency );
    }
 
+   /// !!!
+   /// The parameters below don't necessarily have the desired effect;
+   /// even if both are set, CPLEX may report 'StatusCode Optimal' and an
+   /// objective that is far from optimal. The safer bet is to leave well
+   /// enough alone and let CPLEX report 'StatusCode OptimalTol' with
+   /// 'ProvedOptimal' false. In any case, it's important to check the value
+   /// reported against the optimum, if known, or the best known value. 
+   /// !!!
+
+   // cplex.setParam(IloCplex::Param::Emphasis::Numerical, true);
+   // cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 0);
+   
    cout << "Parameter values for current run --" << endl;
    cout << "Timeout\t" << cplex.getParam( IloCplex::TiLim ) << endl;
    cout << "Node_limit\t" << cplex.getParam( IloCplex::NodeLim )
@@ -596,4 +608,4 @@ static void usage ( const char *progname )
         << endl;
 } // END usage
 
-//  [Last modified: 2019 07 20 at 13:08:59 GMT]
+//  [Last modified: 2019 08 23 at 19:58:51 GMT]
