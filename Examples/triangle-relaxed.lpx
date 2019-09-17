@@ -1,0 +1,12 @@
+\ LP relaxation of vertex cover on a triangle: 3 vertices, 3 edges
+\ the variables are 'semi' (semi-numerical, i.e., positive 'real') instead of binary
+
+min
+  x_1 + x_2 + x_3
+st
+  x_1 + x_2 >= 1
+  x_2 + x_3 >= 1
+  x_1 + x_3 >= 1
+semi
+  x_1 x_2 x_3
+end

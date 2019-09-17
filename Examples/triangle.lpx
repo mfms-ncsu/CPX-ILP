@@ -1,0 +1,11 @@
+\ vertex cover on a triangle: 3 vertices, 3 edges
+
+min
+  x_1 + x_2 + x_3
+st
+  x_1 + x_2 >= 1
+  x_2 + x_3 >= 1
+  x_1 + x_3 >= 1
+binary
+  x_1 x_2 x_3
+end

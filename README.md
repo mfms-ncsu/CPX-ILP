@@ -12,11 +12,15 @@ To build, do the following
 4. `cplex_ilp` or `./cplex_ilp` should give you a long usage message
 5. Try one or more of the following
 * `cplex_ilp -solution Examples/steiner_a0009.lpx` (the -solution option prints out a solution)
-* `cplex_ilp -solution Examples/st09-lp_only.lpx` (here, the solution is the lp-relaxation)
+* `cplex_ilp -solution Examples/steiner_a0009-relaxed.lpx` (here, the solution is the lp-relaxation)
 * `cplex_ilp -time=60 Examples/test4.pi.lpx` (should time out after 60 seconds; let me know if you get an optimum solution)
 * `cplex_ilp -time=30 -trace=2 Examples/test4.pi.lpx` (shorter timeout with trace info)
 * `cplex_ilp Examples/e64.b.lpx` (interesting history: an earlier version of CPLEX took more than an hour on this while my integer dual solver nailed it quickly; now CPLEX does some preprocessing and solves it without branching)
-* `cplex_ilp -nodes=100 Examples/steiner_a0027.lpx` (stops after processing approximately 100 nodes; will be slightly more because some have been generated before the 100th one is processed; at least I thin kthat's why)
+* `cplex_ilp -nodes=100 Examples/steiner_a0027.lpx` (stops after processing approximately 100 nodes; will be slightly more because some have been generated before the 100th one is processed; at least I think that's why)
+
+### Examples
+
+See [index file](Examples/0-index.html) for more details.
 
 ### Utility scripts
 

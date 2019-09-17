@@ -1,0 +1,212 @@
+<html> <head>
+<title>Examples for cplex_ilp</title>
+</head>
+
+<body>
+<h2 align="center">Examples for cplex_ilp</h2>
+
+<pre>
+Most of these problem instances are set cover/packing or vertex cover instances.
+The relaxed versions are LP relaxations of the integer programs.
+The instance pyramid-q.lpx is a quadratic programming instance.
+
+Instances that are not covering or packing problems are the following
+
+   - the pyramid files: these are based on the ILP formulation of crossing minimization
+                        and related objectives for layered graphs; common variables are
+                          x_i_j     = 1 if node i precedes node j on its layer
+                          c_i_j_k_l = 1 if edge ij crosses edge kl
+                          p_i_j     = the position of node i on layer j
+                        the x_i_j and c_i_j_k_l are binary, p_i_j is general (any integer)
+
+   - 2_median_star files: based on a facility location problem; two facilities are to
+                          be optimally located on a star network
+</pre>
+<h3>Files in alphabetical order</h3>
+<hr>
+<ul>
+<li>
+<strong><a href="2_median_star-relaxed.lpx">2_median_star-relaxed.lpx</a> --</strong><br>
+<pre>
+ three nodes {b,c,d} connected to a single central node a
+ all distances 2 and all weights 1
+ oddly, CPLEX reports a solution with fractional values, even though an
+ equally good integral solution exists, as can be verified by replacing
+ the word 'semi' with 'binary'
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="2_median_star.lpx">2_median_star.lpx</a> --</strong><br>
+<pre>
+ the 2-median problem on three nodes {b,c,d} connected to a single central node a
+ all distances 2 and all weights 1
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="e64.b.lpx">e64.b.lpx</a> --</strong><br>
+<pre>
+  File Examples/e64.b.lpx, created Fri Dec 16 18:01:21 GMT 2005
+   - created from covering/sat instance cnf/e64.b.cnf
+  1022 rows, 607 columns
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="in101_min.lpx">in101_min.lpx</a> --</strong><br>
+<pre>
+  File in101_min.lpx, created Thu Sep 29 16:44:58 GMT 2005
+   - created from covering/sat instance Umbra-dense/in101_min.cnf
+  File: in101.cnfx
+  Created on Fri Sep 23 17:11:50 EDT 2005
+  This file is a Set Cover Problem instance in cnfx format,
+  converted from the file in101.wsf
+  with the program 'wsf2cnfx'
+  (decision variable weights are assiged as annoted comment {lines;}
+  thus a sat-solver reading .cnf files should parse this file OK).
+
+  InstanceProfile:
+  nVars=1000, nClauses=500
+  nLitsPos=500 nLitsNeg=0 nLitsTot=500 ImbalanceOfLits=1
+
+  500 rows, 1000 columns
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="pyramid-q.lpx">pyramid-q.lpx</a> --</strong><br>
+<pre>
+  Layered graph example:
+  A four-layer pyramid, minimize stretching of edges using a quadratic objective
+  Variable p_i_j represents the position of node i on layer j
+  Other variables:
+    x_i_j = 1 if node  i precedes node j on its layer, 0 otherwise
+    c_i_j_k_l = 1 if edge ij crosses edge kl; i and k are on the same layer;
+                                              j and l on the next higher layer
+    z_u_v squared is the square of the amount edge uv needs to be stretched in order
+          for vertices to be spread evenly on each layer
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="pyramid-t.lpx">pyramid-t.lpx</a> --</strong><br>
+<pre>
+  Layered graph example:
+  A four-layer pyramid, minimize total number of edge crossings;
+  Variable p_i_j represents the position of node i on layer j
+  Other variables:
+    x_i_j = 1 if node  i precedes node j on its layer, 0 otherwise
+    c_i_j_k_l = 1 if edge ij crosses edge kl; i and k are on the same layer;
+                                              j and l on the next higher layer
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="pyramid-v.lpx">pyramid-v.lpx</a> --</strong><br>
+<pre>
+  Layered graph example:
+  A four-layer pyramid, minimize 'non-verticality' of edges;
+  Variable p_i_k represents the position of node i on layer k
+  Other variables:
+    x_i_j = 1 if node  i precedes node j on its layer, 0 otherwise
+    c_i_j_k_l = 1 if edge ij crosses edge kl; i and k are on the same layer;
+                                              j and l on the next higher layer
+    d_u_v_i = displacement variables (see 2011 Jena tech report by Chimani and Hungerlaender)
+    q_u_v = quadratic non-verticality variable for edge uv
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="sample.lpx">sample.lpx</a> --</strong><br>
+<pre>
+ File: example_cabob.lpx, created on Wed Jul 20 16:08:02 EDT 2005
+ This file represents a Set Packing Problem instance in lpx format;
+ vertices are weighted, as seen in the 'obj:' line
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="steiner_a0009-relaxed.lpx">steiner_a0009-relaxed.lpx</a> --</strong><br>
+<pre>
+  File Examples/st_a09-lp_only.lpx, created Mon Jun 17 20:01:58 UTC 2019
+   - created from covering/sat instance steiner_a0009.lpx
+  but with no binary constraints
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="steiner_a0009.lpx">steiner_a0009.lpx</a> --</strong><br>
+<pre>
+  File Examples/steiner_a0009.lpx, created Fri Dec 16 18:02:06 GMT 2005
+   - created from covering/sat instance cnf/steiner_a0009.cnf
+  12 rows, 9 columns
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="steiner_a0015.lpx">steiner_a0015.lpx</a> --</strong><br>
+<pre>
+  File Examples/steiner_a0015.lpx, created Fri Dec 16 18:02:06 GMT 2005
+   - created from covering/sat instance cnf/steiner_a0015.cnf
+  35 rows, 15 columns
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="steiner_a0027.lpx">steiner_a0027.lpx</a> --</strong><br>
+<pre>
+  File Examples/steiner_a0027.lpx, created Fri Dec 16 18:02:06 GMT 2005
+   - created from covering/sat instance cnf/steiner_a0027.cnf
+  117 rows, 27 columns
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="steiner_a0045.lpx">steiner_a0045.lpx</a> --</strong><br>
+<pre>
+  File Examples/steiner_a0045.lpx, created Fri Dec 16 18:02:06 GMT 2005
+   - created from covering/sat instance cnf/steiner_a0045.cnf
+  330 rows, 45 columns
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="steiner_a0081.lpx">steiner_a0081.lpx</a> --</strong><br>
+<pre>
+  File Examples/steiner_a0081.lpx, created Fri Dec 16 18:02:06 GMT 2005
+   - created from covering/sat instance cnf/steiner_a0081.cnf
+  1080 rows, 81 columns
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="test4.pi.lpx">test4.pi.lpx</a> --</strong><br>
+<pre>
+  File Examples/test4.pi.lpx, created Fri Dec 16 18:02:07 GMT 2005
+   - created from covering/sat instance cnf/test4.pi.cnf
+  1437 rows, 6139 columns
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="triangle-relaxed.lpx">triangle-relaxed.lpx</a> --</strong><br>
+<pre>
+ LP relaxation of vertex cover on a triangle: 3 vertices, 3 edges
+ the variables are 'semi' (semi-numerical, i.e., positive 'real') instead of binary
+</pre>
+</li>
+<hr><br>
+<li>
+<strong><a href="triangle.lpx">triangle.lpx</a> --</strong><br>
+<pre>
+ vertex cover on a triangle: 3 vertices, 3 edges
+</pre>
+</li>
+<hr><br>
+</ul>
+<address>
+<a href="http://people.engr.ncsu.edu/mfms/">Matthias F. (Matt) Stallmann</a><br>
+Created: Tue Sep 17 12:02:49 EDT 2019
+</address>
+</body> </html>

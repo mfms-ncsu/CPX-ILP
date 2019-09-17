@@ -1,0 +1,38 @@
+\ three nodes {b,c,d} connected to a single central node a
+\ all distances 2 and all weights 1
+\ oddly, CPLEX reports a solution with fractional values, even though an
+\ equally good integral solution exists, as can be verified by replacing
+\ the word 'semi' with 'binary'
+Min
+    + 2 ab + 2 ac + 2 ad 
+    + 2 ba + 4 bc + 4 bd
+    + 2 ca + 4 cb + 4 cd
+    + 2 da + 4 db + 4 dc
+st
+\ 2 median
+    + aa + bb + cc + dd = 2
+\ each node served by exactly one other node
+    + aa + ba + ca + da = 1
+    + ab + bb + cb + db = 1
+    + ac + bc + cc + dc = 1
+    + ad + bd + cd + dd = 1
+\ node x can be served by y only if y has a facility (serves itself)
+    + aa - ab >= 0
+    + aa - ac >= 0
+    + aa - ad >= 0
+
+    + bb - ba >= 0
+    + bb - bc >= 0
+    + bb - bd >= 0
+
+    + cc - ca >= 0
+    + cc - cb >= 0
+    + cc - cd >= 0
+
+    + dd - da >= 0
+    + dd - db >= 0
+    + dd - dc >= 0
+
+semi
+    aa ab ac ad ba bb bc bd ca cb cc cd da db dc dd
+end

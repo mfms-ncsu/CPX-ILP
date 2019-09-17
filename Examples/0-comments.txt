@@ -1,0 +1,15 @@
+Most of these problem instances are set cover/packing or vertex cover instances.
+The relaxed versions are LP relaxations of the integer programs.
+The instance pyramid-q.lpx is a quadratic programming instance.
+
+Instances that are not covering or packing problems are the following
+
+   - the pyramid files: these are based on the ILP formulation of crossing minimization
+                        and related objectives for layered graphs; common variables are
+                          x_i_j     = 1 if node i precedes node j on its layer
+                          c_i_j_k_l = 1 if edge ij crosses edge kl
+                          p_i_j     = the position of node i on layer j
+                        the x_i_j and c_i_j_k_l are binary, p_i_j is general (any integer)
+
+   - 2_median_star files: based on a facility location problem; two facilities are to
+                          be optimally located on a star network
