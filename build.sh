@@ -26,6 +26,7 @@ elif [ -d $root_dir/cplex/lib/x86-64_osx/ ]; then
 elif [ -d $root_dir/cplex/lib/x86-64_linux/ ]; then
     # generic linux
     arch=x86-64_linux
+elif [ -d $root_dir/
 fi
 
 # check to see if cplexdistmip library exists (in version 12.9)
@@ -36,4 +37,4 @@ fi
 make ROOT_DIR=$root_dir SYSTEM=$arch DISTMIP=$distmip
 make install
 
-#  [Last modified: 2019 07 20 at 13:10:02 GMT]
+#  [Last modified: 2019 12 18 at 14:22:07 GMT]

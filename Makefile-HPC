@@ -1,18 +1,19 @@
-## Makefile - generic for CPLEX programs
-## @author Matt Stallmann, 2019-05-02
+# Makefile-HPC - for CPLEX programs to be run on NCSU High-Performance Computing servers
+# as of 2019/12/18
 
-# object and header files used for utilities used by cplex_ilp
-OBJECTS = CmdLine.o
-HEADERS = CmdLine.h ClockTimer.h
+# object and header files used for utilities
+CMD_OBJECTS = CmdLine.o
+CMD_HEADERS = CmdLine.h Clocktimer.h
 
 # Executables
 EXECS = cplex_ilp
 
-# seems to be universal; if not, modify build.sh accordingly
+# system information
+SYSTEM     = x86-64_sles9.0_3.3
 LIBFORMAT  = static_pic
 
-CPLEXDIR      = $(ROOT_DIR)/cplex
-CONCERTDIR    = $(ROOT_DIR)/concert
+CPLEXDIR      = /usr/local/apps/ilog/cplex121
+CONCERTDIR    = /usr/local/apps/ilog/concert29
 
 # ---------------------------------------------------------------------
 # Compiler selection 
@@ -21,22 +22,20 @@ CONCERTDIR    = $(ROOT_DIR)/concert
 CCC = g++
 
 # ---------------------------------------------------------------------
-# Compiler options 
-# ---------------------------------------------------------------------
+# Compiler options
+# -------------------q--------------------------------------------------
 
-CCOPT = -Wall -g -O -fexceptions -fPIC -DUNIX -DNDEBUG -DIL_STD
+CCOPT = -Wall -g -O -fexceptions -fPIC -DNDEBUG -DIL_STD -DILOCONCERT1 -static
 
 # ---------------------------------------------------------------------
 # Link options and libraries
 # ---------------------------------------------------------------------
 
-CONCERTLIBDIR = $(CONCERTDIR)/lib/$(SYSTEM)/$(LIBFORMAT) 
-CPLEXLIBDIR = $(CPLEXDIR)/lib/$(SYSTEM)/$(LIBFORMAT) 
-CCLNFLAGS = -L$(CPLEXLIBDIR) -L$(CONCERTLIBDIR) -lilocplex -lcplex -lconcert -lm -lpthread -ldl $(DISTMIP)
+CPLEXBINDIR   = $(CPLEXDIR)/bin/$(BINDIST)
+CPLEXLIBDIR   = $(CPLEXDIR)/lib/$(SYSTEM)/$(LIBFORMAT)
+CONCERTLIBDIR = $(CONCERTDIR)/lib/$(SYSTEM)/$(LIBFORMAT)
 
-# ---------------------------------------------------------------------
-# Includes and complete compiler flags
-# ---------------------------------------------------------------------
+CCLNFLAGS = -L$(CPLEXLIBDIR) -lilocplex -lcplex -L$(CONCERTLIBDIR) -lconcert -lm -lpthread
 
 CONCERTINCDIR = $(CONCERTDIR)/include/
 CPLEXINCDIR   = $(CPLEXDIR)/include/
