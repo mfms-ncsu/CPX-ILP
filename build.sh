@@ -14,6 +14,9 @@ elif [ -d /Applications/CPLEX_Studio129/ ]; then
 elif [ -d /opt/ibm/ILOG/CPLEX_Studio129/ ]; then
     # generic Linux, e.g., tdgoodrich server
     root_dir=/opt/ibm/ILOG/CPLEX_Studio129/
+elif [ -d /usr/local/apps/cplex/ILOG03/ ]; then
+    # latest available on HPC (unsupported)
+    root_dir=/usr/local/apps/cplex/ILOG03/
 fi
 
 # find where architecture-specific lib directory lives
@@ -26,7 +29,6 @@ elif [ -d $root_dir/cplex/lib/x86-64_osx/ ]; then
 elif [ -d $root_dir/cplex/lib/x86-64_linux/ ]; then
     # generic linux
     arch=x86-64_linux
-elif [ -d $root_dir/
 fi
 
 # check to see if cplexdistmip library exists (in version 12.9)
@@ -37,4 +39,4 @@ fi
 make ROOT_DIR=$root_dir SYSTEM=$arch DISTMIP=$distmip
 make install
 
-#  [Last modified: 2019 12 18 at 14:22:07 GMT]
+#  [Last modified: 2019 12 18 at 17:03:42 GMT]
