@@ -372,15 +372,15 @@ main (int argc, char **argv)
    // cplex.setParam(IloCplex::Param::Emphasis::Numerical, true);
    // cplex.setParam(IloCplex::Param::MIP::Tolerances::MIPGap, 0);
    
-   cout << "Parameter values for current run --" << endl;
+   cout << "Parameters for current run --" << endl;
    cout << "Timeout\t" << cplex.getParam( IloCplex::TiLim ) << endl;
    cout << "Node_limit\t" << cplex.getParam( IloCplex::NodeLim )
              << endl;
    cout << "Target_cost\t" << target_cost << endl;
    cout << "Initial_UB\t" << initial_upper_bound << endl;
-   cout << "Dependence indicator:\t"
+   cout << "Dependence_indicator:\t"
              << cplex.getParam( IloCplex::DepInd ) << endl;
-   cout << "Feasibility indicator:\t"
+   cout << "Feasibility_indicator:\t"
              << cplex.getParam( IloCplex::MIPEmphasis ) << endl;
    cout << "Node_selection\t"
              << cplex.getParam( IloCplex::NodeSel ) << endl;
@@ -396,7 +396,7 @@ main (int argc, char **argv)
              << cplex.getParam( IloCplex::FracCuts ) << endl;
    cout << "Covers\t"
              << cplex.getParam( IloCplex::Covers ) << endl;
-   cout << "-- end of run parameters." << endl << endl;
+   cout << "----------------------------------" << endl;
 
    cplex.extract( model );
 
@@ -432,20 +432,20 @@ main (int argc, char **argv)
         )
     ? IloTrue : IloFalse;
 
-   cout << "runtime \t" << runtime_timer.getTotalTime() << endl;
+   cout << "runtime      \t" << runtime_timer.getTotalTime() << endl;
    cout << "CPXtime \t" << cplex.getTime() << endl;
    cout << "TimedOut\t" << timed_out << endl;
    cout << "SolutionFound\t" << solution_found << endl;
    cout << "ProvedOptimal\t" << proved_optimal << endl;
-   cout << "StatusCode\t" << solution_status << endl;
-   cout << "num_branches\t" << cplex.getNnodes() << endl;
+   cout << "StatusCode   \t" << solution_status << endl;
+   cout << "num_branches \t" << cplex.getNnodes() << endl;
    if( solution_found ) {
-     cout << "value     \t" << cplex.getObjValue() << endl;
+     cout << "value      \t" << cplex.getObjValue() << endl;
    }
-   cout << "iterations\t" << cplex.getNiterations() << endl;
-   cout << "frac_cuts  \t" << cplex.getNcuts(IloCplex::CutFrac) << endl;
-   cout << "clique_cuts\t" << cplex.getNcuts(IloCplex::CutClique) << endl;
-   cout << "cover_cuts\t" << cplex.getNcuts(IloCplex::CutCover) << endl;
+   cout << "iterations   \t" << cplex.getNiterations() << endl;
+   cout << "frac_cuts    \t" << cplex.getNcuts(IloCplex::CutFrac) << endl;
+   cout << "clique_cuts  \t" << cplex.getNcuts(IloCplex::CutClique) << endl;
+   cout << "cover_cuts   \t" << cplex.getNcuts(IloCplex::CutCover) << endl;
 
    if( command_line.flagPresent( "verify" ) && solution_found ) {
      if( solve_as_lp ) { // linear program
@@ -608,4 +608,4 @@ static void usage ( const char *progname )
         << endl;
 } // END usage
 
-//  [Last modified: 2019 08 23 at 19:58:51 GMT]
+//  [Last modified: 2020 05 16 at 19:22:03 GMT]

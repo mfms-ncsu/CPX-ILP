@@ -37,6 +37,10 @@ if [ -e $root_dir/cplex/lib/$arch/static_pic/libcplexdistmip.a ]; then
 fi
 
 make ROOT_DIR=$root_dir SYSTEM=$arch DISTMIP=$distmip
-make install
+if [ -d ~/bin ]; then
+    make install
+else
+    echo "Cannot install, ~/bin does not exist; mv cplex_ilp to another directory"
+fi
 
-#  [Last modified: 2019 12 18 at 17:03:42 GMT]
+#  [Last modified: 2020 02 07 at 21:20:33 GMT]
