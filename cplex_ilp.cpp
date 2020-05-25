@@ -405,6 +405,9 @@ main (int argc, char **argv)
    cout << "Constraints\t" << cplex.getNrows() << endl;
    cout << "NonZeros\t" << cplex.getNNZs() << endl;
 
+   // to ensure that this field always exists
+   cout << "StatusCode\t_" << flush;
+
    IloBool solution_found = false;
    ClockTimer runtime_timer = ClockTimer();
    runtime_timer.start();
@@ -432,15 +435,18 @@ main (int argc, char **argv)
         )
     ? IloTrue : IloFalse;
 
+   // tag for status code is printed before the run so that there's
+   // always one there
+   cout << "" << solution_status << endl;
    cout << "runtime      \t" << runtime_timer.getTotalTime() << endl;
    cout << "CPXtime \t" << cplex.getTime() << endl;
    cout << "TimedOut\t" << timed_out << endl;
    cout << "SolutionFound\t" << solution_found << endl;
    cout << "ProvedOptimal\t" << proved_optimal << endl;
-   cout << "StatusCode   \t" << solution_status << endl;
    cout << "num_branches \t" << cplex.getNnodes() << endl;
+   cout << "value      \t";
    if( solution_found ) {
-     cout << "value      \t" << cplex.getObjValue() << endl;
+      cout << cplex.getObjValue() << endl;
    }
    cout << "iterations   \t" << cplex.getNiterations() << endl;
    cout << "frac_cuts    \t" << cplex.getNcuts(IloCplex::CutFrac) << endl;
@@ -608,4 +614,4 @@ static void usage ( const char *progname )
         << endl;
 } // END usage
 
-//  [Last modified: 2020 05 16 at 19:22:03 GMT]
+//  [Last modified: 2020 05 25 at 19:15:34 GMT]
