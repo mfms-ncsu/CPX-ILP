@@ -4,6 +4,16 @@
 # idea is to figure out which of several possible directories the cplex and concert libraries
 # are in and set the appropriate variables for running make; then run make
 
+# check if executable exists and ask if it should be replaced
+if [ -e $HOME/bin/cplex_ilp ]; then
+    echo -n "$HOME/bin/cplex_ilp exists. Replace it? [y/n] "
+    read answer
+    if [ $answer != "y" ]; then
+        echo "Using existing version, compilation terminated."
+        exit 1
+    fi
+fi
+
 # find correct root directory for all include and lib files
 if [ -d /afs/eos.ncsu.edu/dist/ilog/ ]; then
     # cplex in afs space
@@ -37,10 +47,10 @@ if [ -e $root_dir/cplex/lib/$arch/static_pic/libcplexdistmip.a ]; then
 fi
 
 make ROOT_DIR=$root_dir SYSTEM=$arch DISTMIP=$distmip
-if [ -d ~/bin ]; then
+if [ -d $HOME/bin ]; then
     make install
 else
-    echo "Cannot install, ~/bin does not exist; mv cplex_ilp to another directory"
+    echo "Cannot install, $HOME/bin does not exist; mv cplex_ilp to another directory"
 fi
 
-#  [Last modified: 2020 02 07 at 21:20:33 GMT]
+#  [Last modified: 2021 05 28 at 18:57:03 GMT]

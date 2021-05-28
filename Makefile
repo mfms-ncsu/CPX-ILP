@@ -68,5 +68,5 @@ StrQueue.o: StrQueue.cpp StrQueue.h StrNode.h Makefile
 StrTable.o: StrTable.cpp StrTable.h StrTabNode.h Makefile
 
 install : cplex_ilp
-	cp cplex_ilp ~/bin
+	cp cplex_ilp ${HOME}/bin
 	/bin/rm -rf *.o *~
