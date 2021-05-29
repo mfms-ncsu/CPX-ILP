@@ -6,12 +6,21 @@
 
 # check if executable exists and ask if it should be replaced
 if [ -e $HOME/bin/cplex_ilp ]; then
-    echo -n "$HOME/bin/cplex_ilp exists. Replace it? [y/n] "
-    read answer
-    if [ $answer != "y" ]; then
-        echo "Using existing version, compilation terminated."
-        exit 1
-    fi
+    echo -n "$HOME/bin/cplex_ilp exists. (Aa)bort [default], (Cc)ompile only, (Rr)eplace? "
+    read action
+    # continue if action is compile or replace
+    case $action in
+        R | r)
+            echo "Replacing existing executable in $HOME/bin"
+            ;;
+        C | c)
+            echo "Compiling source code but not replacing executable in $HOME/bin"
+            ;;
+        *)
+            echo "Compilation aborted."
+            exit 1
+            ;;
+    esac
 fi
 
 # find correct root directory for all include and lib files
@@ -47,10 +56,23 @@ if [ -e $root_dir/cplex/lib/$arch/static_pic/libcplexdistmip.a ]; then
 fi
 
 make ROOT_DIR=$root_dir SYSTEM=$arch DISTMIP=$distmip
+
+echo "Compilation successful, executable in current directory."
+
+case $action in
+    C | c)
+        echo "Not copying to $HOME/bin"
+        exit 1
+        ;;
+    R | r)
+        echo "Replacing executable in $HOME/bin"
+        ;;
+esac
+
 if [ -d $HOME/bin ]; then
     make install
 else
     echo "Cannot install, $HOME/bin does not exist; mv cplex_ilp to another directory"
 fi
 
-#  [Last modified: 2021 05 28 at 18:57:03 GMT]
+#  [Last modified: 2021 05 29 at 15:56:49 GMT]
