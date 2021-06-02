@@ -127,18 +127,18 @@ main (int argc, char **argv)
    cout << "00-Instance\t" << getBasename(input_file_string) << endl;
    cout << "InputFile\t" << input_file_string << endl;
    
+   // conversion to string is needed for the file stream and importModel() method
+   istringstream input_file_stream( input_file_string );
+   char * input_file_name = new char[ input_file_string.length() + 1 ];
+   input_file_stream >> input_file_name;
+
    // make sure file can be opened for input
-   ifstream input_stream(input_file_string, ios::in);
+   ifstream input_stream(input_file_name, ios::in);
    if( ! input_stream ) {
      cerr << "Unable to open file " << input_file_string
           << " for input." << endl;
      return EXIT_FAILURE;
    }
-
-   // conversion to string is needed for the importModel() method
-   istringstream input_file_stream( input_file_string );
-   char * input_file_name = new char[ input_file_string.length() + 1 ];
-   input_file_stream >> input_file_name;
 
    try {
        cplex.importModel(model, input_file_name, obj, var, rng);
@@ -627,4 +627,4 @@ static void usage ( const char *progname )
         << endl;
 } // END usage
 
-//  [Last modified: 2021 06 02 at 15:49:11 GMT]
+//  [Last modified: 2021 06 02 at 17:04:26 GMT]
