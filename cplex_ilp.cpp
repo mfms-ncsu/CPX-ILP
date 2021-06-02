@@ -52,6 +52,13 @@ char * current_time() {
   return time_message_buffer;
 }
 
+const string getBasename(const string file_name) {
+  string::size_type start_of_basename = file_name.find_last_of("/");
+  string::size_type end_of_basename = file_name.find_last_of(".");
+  string::size_type length_of_basename = end_of_basename - start_of_basename - 1;
+  return file_name.substr(start_of_basename + 1, length_of_basename);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -115,26 +122,32 @@ main (int argc, char **argv)
    IloRangeArray  rng(env);
    bool solve_as_lp = false; // true if only the LP solution is desired
    string input_file_string( command_line.getFile( 1 ) );
-   istringstream input_file_stream( input_file_string );
-   char * input_file_name = new char[ input_file_string.length() + 1 ];
-   input_file_stream >> input_file_name;
-   cout << "InputFile\t" << input_file_name << endl;
+   // needed to allow easy join operations after conversion to csv
+   // using scripts/runstats2csv.sh
+   cout << "00-Instance\t" << getBasename(input_file_string) << endl;
+   cout << "InputFile\t" << input_file_string << endl;
    
    // make sure file can be opened for input
-   ifstream input_stream(input_file_name, ios::in);
+   ifstream input_stream(input_file_string, ios::in);
    if( ! input_stream ) {
-     cerr << "Unable to open file " << input_file_name
+     cerr << "Unable to open file " << input_file_string
           << " for input." << endl;
      return EXIT_FAILURE;
    }
 
+   // conversion to string is needed for the importModel() method
+   istringstream input_file_stream( input_file_string );
+   char * input_file_name = new char[ input_file_string.length() + 1 ];
+   input_file_stream >> input_file_name;
+
    try {
-     cplex.importModel(model, input_file_name, obj, var, rng);
+       cplex.importModel(model, input_file_name, obj, var, rng);
    }
    catch ( IloException & e ) {
      cout << "*** Error while reading file ***" << endl;
      cout << e.getMessage();
      e.end();
+     delete [] input_file_name;
      return EXIT_FAILURE;
    }
    if( command_line.flagPresent( "lp_only" ) ) {
@@ -614,4 +627,4 @@ static void usage ( const char *progname )
         << endl;
 } // END usage
 
-//  [Last modified: 2020 05 25 at 19:15:34 GMT]
+//  [Last modified: 2021 06 02 at 15:49:11 GMT]
