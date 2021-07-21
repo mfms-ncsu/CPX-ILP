@@ -24,10 +24,7 @@ if [ -e $HOME/bin/cplex_ilp ]; then
 fi
 
 # find correct root directory for all include and lib files
-if [ -d /afs/eos.ncsu.edu/dist/ilog/ ]; then
-    # cplex in afs space
-    root_dir=/afs/eos.ncsu.edu/dist/ilog/
-elif [ -d /Applications/CPLEX_Studio129/ ]; then
+if [ -d /Applications/CPLEX_Studio129/ ]; then
     # on a Mac (version 12.9)
     root_dir=/Applications/CPLEX_Studio129/
 elif [ -d /opt/ibm/ILOG/CPLEX_Studio129/ ]; then
@@ -36,6 +33,9 @@ elif [ -d /opt/ibm/ILOG/CPLEX_Studio129/ ]; then
 elif [ -d /usr/local/apps/cplex/ILOG03/ ]; then
     # latest available on HPC (unsupported)
     root_dir=/usr/local/apps/cplex/ILOG03/
+elif [ -d /afs/eos.ncsu.edu/dist/ilog/ ]; then
+    # cplex in afs space
+    root_dir=/afs/eos.ncsu.edu/dist/ilog/
 fi
 
 # find where architecture-specific lib directory lives
