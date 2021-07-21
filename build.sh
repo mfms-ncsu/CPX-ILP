@@ -40,7 +40,7 @@ fi
 
 # find where architecture-specific lib directory lives
 if [ -d $root_dir/cplex/lib/x86-64_sles10_4.1/ ]; then
-    # vcl servers
+    # vcl servers (AFS?)
     arch=x86-64_sles10_4.1
 elif [ -d $root_dir/cplex/lib/x86-64_osx/ ]; then
     # Mac
@@ -48,6 +48,9 @@ elif [ -d $root_dir/cplex/lib/x86-64_osx/ ]; then
 elif [ -d $root_dir/cplex/lib/x86-64_linux/ ]; then
     # generic linux
     arch=x86-64_linux
+elif [ -d $root_dir/cplex/lib/ppc64le_linux/ ]; then
+    # power pc
+    arch=ppc64le_linux
 fi
 
 # check to see if cplexdistmip library exists (in version 12.9)
