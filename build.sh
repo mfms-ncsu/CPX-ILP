@@ -25,16 +25,16 @@ fi
 
 # find correct root directory for all include and lib files
 if [ -d /Applications/CPLEX_Studio129/ ]; then
-    # on a Mac (version 12.9)
+    # on a Mac (version 12.9, currently installed
     root_dir=/Applications/CPLEX_Studio129/
-elif [ -d /opt/ibm/ILOG/CPLEX_Studio129/ ]; then
+elif [ -d /opt/ibm/ILOG/ ]; then
     # generic Linux, e.g., tdgoodrich server
-    root_dir=/opt/ibm/ILOG/CPLEX_Studio129/
+    root_dir=/opt/ibm/ILOG/`ls /opt/ibm/ILOG/`
 elif [ -d /usr/local/apps/cplex/ILOG03/ ]; then
     # latest available on HPC (unsupported)
     root_dir=/usr/local/apps/cplex/ILOG03/
 elif [ -d /afs/eos.ncsu.edu/dist/ilog/ ]; then
-    # cplex in afs space
+    # cplex in afs space (will not be supported in the future)
     root_dir=/afs/eos.ncsu.edu/dist/ilog/
 fi
 
