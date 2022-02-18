@@ -29,21 +29,26 @@ if [ -d /Applications/CPLEX_Studio201/ ]; then
     root_dir=/Applications/CPLEX_Studio201/
 elif [ -d /Applications/CPLEX_Studio129/ ]; then
     # on a Mac (version 12.9)
+if [ -d /Applications/CPLEX_Studio129/ ]; then
+    # on a Mac (version 12.9, currently installed
     root_dir=/Applications/CPLEX_Studio129/
-elif [ -d /opt/ibm/ILOG/CPLEX_Studio129/ ]; then
+elif [ -d /opt/ibm/ILOG/ ]; then
     # generic Linux, e.g., tdgoodrich server
-    root_dir=/opt/ibm/ILOG/CPLEX_Studio129/
+    root_dir=/opt/ibm/ILOG/`ls /opt/ibm/ILOG/`
 elif [ -d /usr/local/apps/cplex/ILOG03/ ]; then
     # latest available on HPC (unsupported)
     root_dir=/usr/local/apps/cplex/ILOG03/
 elif [ -d /afs/eos.ncsu.edu/dist/ilog/ ]; then
-    # cplex in afs space
+    # cplex in afs space (will not be supported in the future)
     root_dir=/afs/eos.ncsu.edu/dist/ilog/
+else
+    echo "Location of cplex installation not found"
+    exit 1
 fi
 
 # find where architecture-specific lib directory lives
 if [ -d $root_dir/cplex/lib/x86-64_sles10_4.1/ ]; then
-    # vcl servers
+    # vcl servers (AFS?)
     arch=x86-64_sles10_4.1
 elif [ -d $root_dir/cplex/lib/x86-64_osx/ ]; then
     # Mac
@@ -51,6 +56,9 @@ elif [ -d $root_dir/cplex/lib/x86-64_osx/ ]; then
 elif [ -d $root_dir/cplex/lib/x86-64_linux/ ]; then
     # generic linux
     arch=x86-64_linux
+elif [ -d $root_dir/cplex/lib/ppc64le_linux/ ]; then
+    # power pc
+    arch=ppc64le_linux
 else
     echo "No compatible library for machine architecture found"
     exit 1
