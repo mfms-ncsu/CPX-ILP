@@ -28,9 +28,7 @@ if [ -d /Applications/CPLEX_Studio201/ ]; then
     # on a Mac (version 20.1)
     root_dir=/Applications/CPLEX_Studio201/
 elif [ -d /Applications/CPLEX_Studio129/ ]; then
-    # on a Mac (version 12.9)
-if [ -d /Applications/CPLEX_Studio129/ ]; then
-    # on a Mac (version 12.9, currently installed
+    # on a Mac (version 12.9, currently installed, but not on Monterey)
     root_dir=/Applications/CPLEX_Studio129/
 elif [ -d /opt/ibm/ILOG/ ]; then
     # generic Linux, e.g., tdgoodrich server
@@ -88,5 +86,3 @@ if [ -d $HOME/bin ]; then
 else
     echo "Cannot install, $HOME/bin does not exist; mv cplex_ilp to another directory"
 fi
-
-#  [Last modified: 2021 05 29 at 15:56:49 GMT]
