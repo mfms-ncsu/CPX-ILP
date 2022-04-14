@@ -24,6 +24,11 @@ if [ -e $HOME/bin/cplex_ilp ]; then
 fi
 
 # find correct root directory for all include and lib files
+if [ -d /Applications/CPLEX_Studio201/ ]; then
+    # on a Mac (version 20.1)
+    root_dir=/Applications/CPLEX_Studio201/
+elif [ -d /Applications/CPLEX_Studio129/ ]; then
+    # on a Mac (version 12.9)
 if [ -d /Applications/CPLEX_Studio129/ ]; then
     # on a Mac (version 12.9, currently installed
     root_dir=/Applications/CPLEX_Studio129/
@@ -36,6 +41,9 @@ elif [ -d /usr/local/apps/cplex/ILOG03/ ]; then
 elif [ -d /afs/eos.ncsu.edu/dist/ilog/ ]; then
     # cplex in afs space (will not be supported in the future)
     root_dir=/afs/eos.ncsu.edu/dist/ilog/
+else
+    echo "Location of cplex installation not found"
+    exit 1
 fi
 
 # find where architecture-specific lib directory lives
@@ -51,6 +59,9 @@ elif [ -d $root_dir/cplex/lib/x86-64_linux/ ]; then
 elif [ -d $root_dir/cplex/lib/ppc64le_linux/ ]; then
     # power pc
     arch=ppc64le_linux
+else
+    echo "No compatible library for machine architecture found"
+    exit 1
 fi
 
 # check to see if cplexdistmip library exists (in version 12.9)
