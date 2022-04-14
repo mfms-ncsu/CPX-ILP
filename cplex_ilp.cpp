@@ -459,8 +459,9 @@ main (int argc, char **argv)
    cout << "num_branches \t" << cplex.getNnodes() << endl;
    cout << "value      \t";
    if( solution_found ) {
-      cout << cplex.getObjValue() << endl;
+      cout << cplex.getObjValue();
    }
+   cout << endl;
    cout << "iterations   \t" << cplex.getNiterations() << endl;
    cout << "frac_cuts    \t" << cplex.getNcuts(IloCplex::CutFrac) << endl;
    cout << "clique_cuts  \t" << cplex.getNcuts(IloCplex::CutClique) << endl;
