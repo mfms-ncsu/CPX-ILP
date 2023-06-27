@@ -26,4 +26,4 @@ See [index file](Examples/0-index.html) for more details.
 
 * `cplexClassScript CLASS_DIR OUTPUT_DIR SUFFIX [OPTIONS]` runs `cplex_ilp` on all files in `CLASS_DIR`, an output file in `OUTPUT_DIR`. The output file has all of the output. The `SUFFIX` is attached to the name of the output file -- a `-` means no suffix. `OPTIONS` is a list of command-line options for `cplex_ilp`
 * `cplexLBFromFile BENCHMARK_LIST OUTPUT_DIR [OPTIONS]`, where `BENCHMARK_LIST` is a file in which each line gives a file name and a known upper bound on the solution, runs `cplex_ilp` on all files in the `BENCHMARK_LIST` using the known upper bounds as a stopping criterion (if a matching lower bound is encountered)
-`param_experiment` is a script that tries out a wide range of options on a fixed set of instances -- see the actual script for details
+* `param_experiment` is a script that tries out a wide range of options on a fixed set of instances -- see the actual script for details
