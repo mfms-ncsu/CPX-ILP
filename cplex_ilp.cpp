@@ -147,6 +147,7 @@ main (int argc, char **argv)
      cout << "*** Error while reading file ***" << endl;
      cout << e.getMessage();
      e.end();
+     env.end();
      delete [] input_file_name;
      return EXIT_FAILURE;
    }
@@ -433,6 +434,7 @@ main (int argc, char **argv)
      runtime_timer.stop();
      cout << "*** elapsed time = " << runtime_timer.getTotalTime() << endl;
      e.end();
+     env.end();
      return EXIT_FAILURE;
    }
    runtime_timer.stop();
