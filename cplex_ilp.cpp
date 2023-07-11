@@ -144,8 +144,8 @@ main (int argc, char **argv)
        cplex.importModel(model, input_file_name, obj, var, rng);
    }
    catch ( IloException & e ) {
-     cout << "*** Error while reading file ***" << endl;
-     cout << e.getMessage();
+     cerr << "*** Error while reading file ***" << endl;
+     cerr << e.getMessage();
      e.end();
      env.end();
      delete [] input_file_name;
@@ -429,8 +429,8 @@ main (int argc, char **argv)
      solution_found = cplex.solve();
    }
    catch ( IloException & e ) {
-     cout << "*** Error during solving ***" << endl;
-     cout << e.getMessage();
+     cerr << "*** Error during solving ***" << endl;
+     cerr << e.getMessage();
      runtime_timer.stop();
      cout << "*** elapsed time = " << runtime_timer.getTotalTime() << endl;
      e.end();
