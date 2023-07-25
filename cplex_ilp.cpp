@@ -432,7 +432,9 @@ main (int argc, char **argv)
      cerr << "*** Error during solving ***" << endl;
      cerr << e.getMessage();
      runtime_timer.stop();
-     cout << "*** elapsed time = " << runtime_timer.getTotalTime() << endl;
+     cerr << "*** elapsed time = " << runtime_timer.getTotalTime() << endl;
+     cout << "ERROR" << endl;
+     cout << "runtime      \t" << runtime_timer.getTotalTime() << endl;
      e.end();
      env.end();
      return EXIT_FAILURE;
